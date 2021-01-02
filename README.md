@@ -43,6 +43,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 This Project use bootswatch [Flatly Theme](https://bootswatch.com/flatly/)
 
+### `yarn add react-router-dom`
+
+This package control routes in react app
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
