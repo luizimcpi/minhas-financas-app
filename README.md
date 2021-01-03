@@ -47,6 +47,10 @@ This Project use bootswatch [Flatly Theme](https://bootswatch.com/flatly/)
 
 This package control routes in react app
 
+### `yarn add axios`
+
+This package uses promises to make http requests
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
