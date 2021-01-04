@@ -1,8 +1,11 @@
-import React from 'react';
 import 'bootswatch/dist/flatly/bootstrap.css'
-import Rotas from './rotas'
-import Navbar from '../components/navbar'
 import '../custom.css'
+import 'toastr/build/toastr.css'
+import 'toastr/build/toastr.min.js'
+
+import Navbar from '../components/navbar'
+import React from 'react';
+import Rotas from './rotas'
 
 class App extends React.Component {
   render(){

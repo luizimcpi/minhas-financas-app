@@ -51,6 +51,10 @@ This package control routes in react app
 
 This package uses promises to make http requests
 
+### `yarn add toastr`
+
+This package is used to show messages in the screen
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
