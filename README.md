@@ -55,6 +55,10 @@ This package uses promises to make http requests
 
 This package is used to show messages in the screen
 
+### `yarn add currency-formatter`
+
+This package format money values
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
