@@ -18,7 +18,7 @@ export default props => {
                     </button>
                     
                     <button type="button" className="btn btn-danger" 
-                    onClick={e => props.deletarAction(lancamento.id)}>
+                    onClick={e => props.deletarAction(lancamento)}>
                         Deletar
                     </button>
                 </td>
