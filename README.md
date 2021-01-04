@@ -59,6 +59,10 @@ This package is used to show messages in the screen
 
 This package format money values
 
+### `yarn add primereact`
+
+This package is used to create confirmation modals
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
