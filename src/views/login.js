@@ -1,9 +1,9 @@
-import React from 'react';
 import Card from '../components/card'
 import FormGroup from '../components/form-group'
+import LocalStorageService from '../app/service/localstorageService'
+import React from 'react';
+import UsuarioService from '../app/service/usuarioService'
 import { withRouter } from 'react-router-dom'
-
-import axios from 'axios'
 
 class Login extends React.Component {
 
@@ -13,11 +13,18 @@ class Login extends React.Component {
         mensagemErro: null
     }
 
+    constructor(){
+        super();
+        this.service = new UsuarioService();
+    }
+
     entrar = () => {
-        axios.post('https://financas-lh-api.herokuapp.com/api/usuarios/autenticar',{
+
+        this.service.autenticar({
             email: this.state.email,
             senha: this.state.senha
         }).then( response => {
+            LocalStorageService.adicionarItem('_usuario_logado', response.data)
             this.props.history.push('/home')
         }).catch( erro => {
             this.setState({mensagemErro: 'Email ou senha inválidos!'})

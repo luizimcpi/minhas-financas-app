@@ -1,5 +1,6 @@
+import LocalStorageService from '../app/service/localstorageService';
 import React from 'react'
-import axios from 'axios'
+import UsuarioService from '../app/service/usuarioService'
 
 class Home extends React.Component {
 
@@ -7,8 +8,15 @@ class Home extends React.Component {
         saldo: 0
     }
 
+    constructor(){
+        super()
+        this.usuarioService = new UsuarioService();
+    }
+
     componentDidMount(){
-        axios.get('https://financas-lh-api.herokuapp.com/api/usuarios/1/saldo')
+        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+    
+        this.usuarioService.obterSaldoPorUsuario(usuarioLogado.id)
         .then( response => {
             this.setState({saldo: response.data})
         }).catch( error => {
