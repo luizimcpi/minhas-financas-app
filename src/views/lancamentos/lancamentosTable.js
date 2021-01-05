@@ -33,7 +33,7 @@ export default props => {
                     <th scope="col">Descrição</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Tipo</th>
-                    <th scope="col">Mẽs</th>
+                    <th scope="col">Mês</th>
                     <th scope="col">Situação</th>
                     <th scope="col">Ações</th>
                 </tr>
