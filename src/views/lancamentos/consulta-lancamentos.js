@@ -62,6 +62,24 @@ class ConsultaLancamentos extends React.Component{
         this.props.history.push(`/cadastro-lancamentos/${id}`)
     }
 
+    alterarStatus = (lancamento, status) => {
+        this.service
+        .alterarStatus(lancamento.id, status)
+        .then(response => {
+            const lancamentos = this.state.lancamentos
+            const index = lancamentos.indexOf(lancamento)
+
+            if(index !== -1){
+                lancamento['status'] = status
+                lancamentos[index] = lancamento
+                this.setState( { lancamentos })
+            }
+            messages.mensagemSucesso("Status atualizado com sucesso!")
+        }).catch(error => {
+            messages.mensagemErro('Erro ao tentar alterar status do lançamento.')
+        })
+    }
+
     abrirConfirmacao = (lancamento) => {
         this.setState({showConfirmDialog: true, lancamentoDeletar: lancamento})
     }
@@ -145,7 +163,8 @@ class ConsultaLancamentos extends React.Component{
                         <div className="bs-component">
                             <LancamentosTable lancamentos={this.state.lancamentos} 
                                               deletarAction={this.abrirConfirmacao} 
-                                              editarAction={this.editar}/>
+                                              editarAction={this.editar}
+                                              alterarStatus={this.alterarStatus}/>
                         </div>
                     </div>
                 </div>
