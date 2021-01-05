@@ -82,7 +82,6 @@ export default class LancamentoService extends ApiService {
             erros.push("Informe o Ano.")
         }
 
-
         if(!lancamento.mes){
             erros.push("Informe o Mês.")
         }
