@@ -59,7 +59,7 @@ class ConsultaLancamentos extends React.Component{
     }
 
     editar = (id) => {
-        console.log('editar id ', id)
+        this.props.history.push(`/cadastro-lancamentos/${id}`)
     }
 
     abrirConfirmacao = (lancamento) => {
@@ -143,7 +143,9 @@ class ConsultaLancamentos extends React.Component{
                 <div className="row">
                     <div className="col-md-12">
                         <div className="bs-component">
-                            <LancamentosTable lancamentos={this.state.lancamentos} deletarAction={this.abrirConfirmacao} editarAction={this.editar}/>
+                            <LancamentosTable lancamentos={this.state.lancamentos} 
+                                              deletarAction={this.abrirConfirmacao} 
+                                              editarAction={this.editar}/>
                         </div>
                     </div>
                 </div>
