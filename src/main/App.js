@@ -7,19 +7,20 @@ import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 
 import Navbar from '../components/navbar'
+import ProvedorAutenticacao from './provedorAutenticacao'
 import React from 'react'
 import Rotas from './rotas'
 
 class App extends React.Component {
   render(){
     return(
-      <>
+      <ProvedorAutenticacao>
         <Navbar />
           <div className="container">
             <Rotas />
           </div>
         <Navbar />
-      </>
+      </ProvedorAutenticacao>
     )
   }
 }

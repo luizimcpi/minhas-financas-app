@@ -1,6 +1,6 @@
+import { AuthContext } from '../main/provedorAutenticacao'
 import Card from '../components/card'
 import FormGroup from '../components/form-group'
-import LocalStorageService from '../app/service/localstorageService'
 import React from 'react';
 import UsuarioService from '../app/service/usuarioService'
 import { mensagemErro } from '../components/toastr'
@@ -24,7 +24,7 @@ class Login extends React.Component {
             email: this.state.email,
             senha: this.state.senha
         }).then( response => {
-            LocalStorageService.adicionarItem('_usuario_logado', response.data)
+            this.context.iniciarSessao(response.data)
             this.props.history.push('/home')
         }).catch( erro => {
             mensagemErro('Email e/ou senha inválido(s)!')
@@ -81,5 +81,7 @@ class Login extends React.Component {
         )
     }
   }
+
+  Login.contextType = AuthContext
   
   export default withRouter(Login);
