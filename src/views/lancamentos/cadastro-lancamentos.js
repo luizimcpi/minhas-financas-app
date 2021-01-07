@@ -1,9 +1,9 @@
 import * as messages from '../../components/toastr'
 
+import { AuthContext } from '../../main/provedorAutenticacao'
 import Card from '../../components/card'
 import FormGroup from '../../components/form-group'
 import LancamentoService from '../../app/service/lancamentoService'
-import LocalStorageService from '../../app/service/localstorageService'
 import React from 'react'
 import SelectMenu from '../../components/selectMenu'
 import { withRouter } from 'react-router-dom'
@@ -29,9 +29,12 @@ class CadastroLancamentos extends React.Component {
 
     componentDidMount(){
         const params = this.props.match.params
-        if(params.id){
+        const usuarioLogado = this.context.usuarioAutenticado
+        if(params.id && usuarioLogado){
+            const accessToken = usuarioLogado.accessToken
+            
             this.lancamentoService
-            .obterPorId(params.id)
+            .obterPorId(params.id, accessToken)
             .then(response => {
                 this.setState({ ...response.data, atualizando: true })
             }).catch(error => {
@@ -41,8 +44,8 @@ class CadastroLancamentos extends React.Component {
     }
 
     submit = () => {
-
-        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+        const usuarioLogado = this.context.usuarioAutenticado
+        
         const { descricao, valor, mes, ano, tipo} = this.state
 
         const lancamento = { descricao, valor, mes, ano, tipo, usuario: usuarioLogado.id }
@@ -56,7 +59,7 @@ class CadastroLancamentos extends React.Component {
         }
 
         this.lancamentoService
-        .salvar(lancamento)
+        .salvar(lancamento, usuarioLogado.accessToken)
         .then( response => {
             this.props.history.push('/consulta-lancamentos')
             messages.mensagemSucesso('Lançamento cadastrado com sucesso!')  
@@ -66,11 +69,13 @@ class CadastroLancamentos extends React.Component {
     } 
 
     atualizar = () => {
+        const usuarioLogado = this.context.usuarioAutenticado
+
         const { descricao, valor, mes, ano, tipo, status, id, usuario} = this.state
         const lancamento = { descricao, valor, mes, ano, tipo, status, id, usuario }
 
         this.lancamentoService
-        .atualizar(lancamento)
+        .atualizar(lancamento, usuarioLogado.accessToken)
         .then( response => {
             this.props.history.push('/consulta-lancamentos')
             messages.mensagemSucesso('Lançamento atualizado com sucesso!')  
@@ -194,5 +199,8 @@ class CadastroLancamentos extends React.Component {
         )
     }
 }
+
+
+CadastroLancamentos.contextType = AuthContext
 
 export default withRouter(CadastroLancamentos)

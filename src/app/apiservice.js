@@ -40,6 +40,33 @@ class ApiService {
         });
     }
 
+    postWithAuthorization(url, objeto, authorization){
+        const requestUrl = `${this.apiurl}${url}`
+        return httpClient.post(requestUrl, objeto, {
+            headers: {
+                'Authorization': `Bearer ${authorization}`
+            }
+        });
+    }
+
+    putWithAuthorization(url, objeto, authorization){
+        const requestUrl = `${this.apiurl}${url}`
+        return httpClient.put(requestUrl, objeto, {
+            headers: {
+                'Authorization': `Bearer ${authorization}`
+            }
+        });
+    }
+
+    deleteWithAuthorization(url, authorization){
+        const requestUrl = `${this.apiurl}${url}`
+        return httpClient.delete(requestUrl, {
+            headers: {
+                'Authorization': `Bearer ${authorization}`
+            }
+        });
+    }
+
 }
 
 export default ApiService;

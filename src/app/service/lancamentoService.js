@@ -33,23 +33,23 @@ export default class LancamentoService extends ApiService {
         ]
     }
 
-    obterPorId(id){
-        return this.get(`/${id}`)
+    obterPorId(id, accessToken){
+        return this.getWithAuthorization(`/${id}`, accessToken)
     }
 
-    salvar(lancamento){
-        return this.post('/', lancamento)
+    salvar(lancamento, accessToken){
+        return this.postWithAuthorization('/', lancamento, accessToken)
     }
 
-    atualizar(lancamento){
-        return this.put(`/${lancamento.id}`, lancamento)
+    atualizar(lancamento, accessToken){
+        return this.putWithAuthorization(`/${lancamento.id}`, lancamento, accessToken)
     }
 
-    alterarStatus(id, status){
-        return this.put(`/${id}/status`, { status })
+    alterarStatus(id, status, accessToken){
+        return this.putWithAuthorization(`/${id}/status`, { status }, accessToken)
     }
 
-    consultar(lancamentoFiltro){
+    consultar(lancamentoFiltro, accessToken){
         let params = `?ano=${lancamentoFiltro.ano}`
 
         if(lancamentoFiltro.mes){
@@ -72,11 +72,11 @@ export default class LancamentoService extends ApiService {
             params = `${params}&descricao=${lancamentoFiltro.descricao}`
         }
 
-        return this.get(params)
+        return this.getWithAuthorization(params, accessToken)
     }
 
-    deletar(id){
-        return this.delete(`/${id}`)
+    deletar(id, accessToken){
+        return this.deleteWithAuthorization(`/${id}`, accessToken)
     }
 
     validar(lancamento){
