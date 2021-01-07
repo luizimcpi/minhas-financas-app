@@ -63,6 +63,10 @@ This package format money values
 
 This package is used to create confirmation modals
 
+### `yarn build`
+
+This command build package to production
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
