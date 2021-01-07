@@ -1,5 +1,4 @@
 import { AuthConsumer } from '../main/provedorAutenticacao'
-import AuthService from '../app/service/authService'
 import NavbarItem from './navbaritem';
 import React from 'react';
 
