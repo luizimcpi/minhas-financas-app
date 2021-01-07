@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const httpClient = axios.create({
-    baseURL: 'https://financas-lh-api.herokuapp.com'
-    // baseURL: 'http://localhost:8080'
+    // baseURL: 'https://financas-lh-api.herokuapp.com'
+    baseURL: 'http://localhost:8080'
 })
 
 class ApiService {
@@ -29,6 +29,42 @@ class ApiService {
     get(url){
         const requestUrl = `${this.apiurl}${url}`
         return httpClient.get(requestUrl);
+    }
+
+    getWithAuthorization(url, authorization){
+        const requestUrl = `${this.apiurl}${url}`
+        return httpClient.get(requestUrl, {
+            headers: {
+                'Authorization': `Bearer ${authorization}`
+            }
+        });
+    }
+
+    postWithAuthorization(url, objeto, authorization){
+        const requestUrl = `${this.apiurl}${url}`
+        return httpClient.post(requestUrl, objeto, {
+            headers: {
+                'Authorization': `Bearer ${authorization}`
+            }
+        });
+    }
+
+    putWithAuthorization(url, objeto, authorization){
+        const requestUrl = `${this.apiurl}${url}`
+        return httpClient.put(requestUrl, objeto, {
+            headers: {
+                'Authorization': `Bearer ${authorization}`
+            }
+        });
+    }
+
+    deleteWithAuthorization(url, authorization){
+        const requestUrl = `${this.apiurl}${url}`
+        return httpClient.delete(requestUrl, {
+            headers: {
+                'Authorization': `Bearer ${authorization}`
+            }
+        });
     }
 
 }

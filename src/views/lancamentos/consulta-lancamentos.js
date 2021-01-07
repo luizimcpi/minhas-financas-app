@@ -1,12 +1,12 @@
 import * as messages from '../../components/toastr'
 
+import { AuthContext } from '../../main/provedorAutenticacao'
 import { Button } from 'primereact/button';
 import Card from '../../components/card'
 import { Dialog } from 'primereact/dialog';
 import FormGroup from '../../components/form-group'
 import LancamentoService from '../../app/service/lancamentoService'
 import LancamentosTable from './lancamentosTable'
-import LocalStorageService from '../../app/service/localstorageService'
 import React from 'react'
 import SelectMenu from '../../components/selectMenu'
 import { withRouter } from 'react-router-dom'
@@ -34,7 +34,7 @@ class ConsultaLancamentos extends React.Component{
             return false
         }
         
-        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+        const usuarioLogado = this.context.usuarioAutenticado
         
         const lancamentoFiltro = {
             ano: this.state.ano,
@@ -45,7 +45,7 @@ class ConsultaLancamentos extends React.Component{
         }
 
         this.service
-        .consultar(lancamentoFiltro)
+        .consultar(lancamentoFiltro, usuarioLogado.accessToken)
         .then( response => {
             const lista = response.data
             if(lista.length < 1){
@@ -67,8 +67,10 @@ class ConsultaLancamentos extends React.Component{
     }
 
     alterarStatus = (lancamento, status) => {
+        const usuarioLogado = this.context.usuarioAutenticado
+        
         this.service
-        .alterarStatus(lancamento.id, status)
+        .alterarStatus(lancamento.id, status, usuarioLogado.accessToken)
         .then(response => {
             const lancamentos = this.state.lancamentos
             const index = lancamentos.indexOf(lancamento)
@@ -93,7 +95,9 @@ class ConsultaLancamentos extends React.Component{
     }
 
     deletar = () => {
-        this.service.deletar(this.state.lancamentoDeletar.id)
+        const usuarioLogado = this.context.usuarioAutenticado
+        
+        this.service.deletar(this.state.lancamentoDeletar.id, usuarioLogado.accessToken)
         .then(response => {
             const lancamentos = this.state.lancamentos
             const index = lancamentos.indexOf(this.state.lancamentoDeletar)
@@ -190,5 +194,7 @@ class ConsultaLancamentos extends React.Component{
         )
     }
 }
+
+ConsultaLancamentos.contextType = AuthContext
 
 export default withRouter(ConsultaLancamentos);
