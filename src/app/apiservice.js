@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const httpClient = axios.create({
-    baseURL: 'https://financas-lh-api.herokuapp.com'
-    // baseURL: 'http://localhost:8080'
+    // baseURL: 'https://financas-lh-api.herokuapp.com'
+    baseURL: 'http://localhost:8080'
 })
 
 class ApiService {
@@ -29,6 +29,15 @@ class ApiService {
     get(url){
         const requestUrl = `${this.apiurl}${url}`
         return httpClient.get(requestUrl);
+    }
+
+    getWithAuthorization(url, authorization){
+        const requestUrl = `${this.apiurl}${url}`
+        return httpClient.get(requestUrl, {
+            headers: {
+                'Authorization': `Bearer ${authorization}`
+            }
+        });
     }
 
 }
