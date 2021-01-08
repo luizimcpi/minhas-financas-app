@@ -3,8 +3,8 @@ import Card from '../components/card'
 import FormGroup from '../components/form-group'
 import React from 'react';
 import UsuarioService from '../app/service/usuarioService'
-import { mensagemErro } from '../components/toastr'
 import { withRouter } from 'react-router-dom'
+import * as messages from '../components/toastr'
 
 class Login extends React.Component {
 
@@ -19,15 +19,16 @@ class Login extends React.Component {
     }
 
     entrar = () => {
-
+        messages.mensagemAlerta('Carregando...')
         this.service.autenticar({
             email: this.state.email,
             senha: this.state.senha
         }).then( response => {
             this.context.iniciarSessao(response.data)
             this.props.history.push('/home')
+            messages.fecharMensagens()
         }).catch( erro => {
-            mensagemErro('Email e/ou senha inválido(s)!')
+            messages.mensagemErro('Email e/ou senha inválido(s)!')
         })
     }
 
