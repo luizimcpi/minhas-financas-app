@@ -18,7 +18,6 @@ class CadastroLancamentos extends React.Component {
         ano: '',
         tipo: '',
         status: '',
-        usuario: null,
         atualizando: false
     }
 
@@ -31,10 +30,9 @@ class CadastroLancamentos extends React.Component {
         const params = this.props.match.params
         const usuarioLogado = this.context.usuarioAutenticado
         if(params.id && usuarioLogado){
-            const accessToken = usuarioLogado.accessToken
             
             this.lancamentoService
-            .obterPorId(params.id, accessToken)
+            .obterPorId(params.id, usuarioLogado)
             .then(response => {
                 this.setState({ ...response.data, atualizando: true })
             }).catch(error => {
@@ -48,7 +46,7 @@ class CadastroLancamentos extends React.Component {
         
         const { descricao, valor, mes, ano, tipo} = this.state
 
-        const lancamento = { descricao, valor, mes, ano, tipo, usuario: usuarioLogado.id }
+        const lancamento = { descricao, valor, mes, ano, tipo }
 
         try {
             this.lancamentoService.validar(lancamento)
@@ -59,7 +57,7 @@ class CadastroLancamentos extends React.Component {
         }
 
         this.lancamentoService
-        .salvar(lancamento, usuarioLogado.accessToken)
+        .salvar(lancamento, usuarioLogado)
         .then( response => {
             this.props.history.push('/consulta-lancamentos')
             messages.mensagemSucesso('Lançamento cadastrado com sucesso!')  
@@ -71,11 +69,11 @@ class CadastroLancamentos extends React.Component {
     atualizar = () => {
         const usuarioLogado = this.context.usuarioAutenticado
 
-        const { descricao, valor, mes, ano, tipo, status, id, usuario} = this.state
-        const lancamento = { descricao, valor, mes, ano, tipo, status, id, usuario }
+        const { descricao, valor, mes, ano, tipo, status, id} = this.state
+        const lancamento = { descricao, valor, mes, ano, tipo, status, id }
 
         this.lancamentoService
-        .atualizar(lancamento, usuarioLogado.accessToken)
+        .atualizar(lancamento, usuarioLogado)
         .then( response => {
             this.props.history.push('/consulta-lancamentos')
             messages.mensagemSucesso('Lançamento atualizado com sucesso!')  

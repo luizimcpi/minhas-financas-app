@@ -33,23 +33,23 @@ export default class LancamentoService extends ApiService {
         ]
     }
 
-    obterPorId(id, accessToken){
-        return this.getWithAuthorization(`/${id}`, accessToken)
+    obterPorId(id, usuarioLogado){
+        return this.getWithAuthorization(`/${id}`, usuarioLogado)
     }
 
-    salvar(lancamento, accessToken){
-        return this.postWithAuthorization('/', lancamento, accessToken)
+    salvar(lancamento, usuarioLogado){
+        return this.postWithAuthorization('/', lancamento, usuarioLogado)
     }
 
-    atualizar(lancamento, accessToken){
-        return this.putWithAuthorization(`/${lancamento.id}`, lancamento, accessToken)
+    atualizar(lancamento, usuarioLogado){
+        return this.putWithAuthorization(`/${lancamento.id}`, lancamento, usuarioLogado)
     }
 
-    alterarStatus(id, status, accessToken){
-        return this.putWithAuthorization(`/${id}/status`, { status }, accessToken)
+    alterarStatus(id, status, usuarioLogado){
+        return this.putWithAuthorization(`/${id}/status`, { status }, usuarioLogado)
     }
 
-    consultar(lancamentoFiltro, accessToken){
+    consultar(lancamentoFiltro, usuarioLogado){
         let params = `?ano=${lancamentoFiltro.ano}`
 
         if(lancamentoFiltro.mes){
@@ -64,19 +64,15 @@ export default class LancamentoService extends ApiService {
             params = `${params}&status=${lancamentoFiltro.status}`
         }
 
-        if(lancamentoFiltro.usuario){
-            params = `${params}&usuario=${lancamentoFiltro.usuario}`
-        }
-
         if(lancamentoFiltro.descricao){
             params = `${params}&descricao=${lancamentoFiltro.descricao}`
         }
 
-        return this.getWithAuthorization(params, accessToken)
+        return this.getWithAuthorization(params, usuarioLogado)
     }
 
-    deletar(id, accessToken){
-        return this.deleteWithAuthorization(`/${id}`, accessToken)
+    deletar(id, usuarioLogado){
+        return this.deleteWithAuthorization(`/${id}`, usuarioLogado)
     }
 
     validar(lancamento){

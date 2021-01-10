@@ -40,12 +40,11 @@ class ConsultaLancamentos extends React.Component{
             ano: this.state.ano,
             mes: this.state.mes,
             tipo: this.state.tipo,
-            descricao: this.state.descricao,
-            usuario: usuarioLogado.id
+            descricao: this.state.descricao
         }
 
         this.service
-        .consultar(lancamentoFiltro, usuarioLogado.accessToken)
+        .consultar(lancamentoFiltro, usuarioLogado)
         .then( response => {
             const lista = response.data
             if(lista.length < 1){
@@ -70,7 +69,7 @@ class ConsultaLancamentos extends React.Component{
         const usuarioLogado = this.context.usuarioAutenticado
         
         this.service
-        .alterarStatus(lancamento.id, status, usuarioLogado.accessToken)
+        .alterarStatus(lancamento.id, status, usuarioLogado)
         .then(response => {
             const lancamentos = this.state.lancamentos
             const index = lancamentos.indexOf(lancamento)
@@ -97,7 +96,7 @@ class ConsultaLancamentos extends React.Component{
     deletar = () => {
         const usuarioLogado = this.context.usuarioAutenticado
         
-        this.service.deletar(this.state.lancamentoDeletar.id, usuarioLogado.accessToken)
+        this.service.deletar(this.state.lancamentoDeletar.id, usuarioLogado)
         .then(response => {
             const lancamentos = this.state.lancamentos
             const index = lancamentos.indexOf(this.state.lancamentoDeletar)
